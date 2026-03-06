@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Card from "./Card.astro";
+
+type Props = {
+  posts: CollectionEntry<"blog">[];
+};
+
+const { posts } = Astro.props;
+---
+
+{
+  posts.length > 0 ? (
+    <ul>
+      {posts.map(data => <Card {...data} />)}
+    </ul>
+  ) : (
+    <div class="rounded-3xl border border-border bg-muted/25 px-5 py-8">
+      <p class="text-lg font-medium">No posts here yet.</p>
+      <p class="mt-2 text-sm leading-7 opacity-75">
+        This filtered view is ready, but there are no published articles here
+        yet.
+      </p>
+    </div>
+  )
+}

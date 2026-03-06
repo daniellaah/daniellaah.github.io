@@ -1,0 +1,32 @@
+---
+import { getLanguageNavigation } from "@/utils/language";
+
+type Props = {
+  currentHref: string;
+};
+
+const { currentHref } = Astro.props;
+const items = getLanguageNavigation();
+---
+
+<nav aria-label="Language filters" class="mb-8 flex flex-wrap gap-3">
+  {
+    items.map(item => {
+      const isActive = currentHref === item.href;
+
+      return (
+        <a
+          href={item.href}
+          class:list={[
+            "rounded-full border px-4 py-2 text-sm transition-colors",
+            isActive
+              ? "border-accent bg-accent text-background"
+              : "border-border hover:border-accent hover:text-accent",
+          ]}
+        >
+          {item.shortLabel}
+        </a>
+      );
+    })
+  }
+</nav>
