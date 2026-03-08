@@ -1,5 +1,4 @@
 ---
-import "@pagefind/default-ui/css/ui.css";
 import Main from "@/layouts/Main.astro";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
@@ -11,131 +10,206 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
 
 <Layout title={`Search | ${SITE.title}`}>
   <Header />
-  <Main pageTitle="Search" pageDesc="Search any article ...">
-    <div id="pagefind-search" transition:persist data-backurl={backUrl}></div>
+  <Main pageTitle="Search" pageDesc="Search posts and projects.">
+    <section class="space-y-5" data-backurl={backUrl}>
+      <div class="relative">
+        <label class="sr-only" for="search-input">Search</label>
+        <input
+          id="search-input"
+          type="search"
+          placeholder="Search posts and projects"
+          class="w-full rounded-2xl border border-border bg-background px-5 py-4 pe-24 text-lg outline-hidden transition focus:border-accent"
+          autocomplete="off"
+        />
+        <button
+          id="search-clear"
+          type="button"
+          class="absolute top-1/2 right-4 -translate-y-1/2 text-sm font-medium opacity-70 hover:opacity-100"
+        >
+          Clear
+        </button>
+      </div>
+
+      <p id="search-status" class="text-sm opacity-75">
+        Type a keyword to search across posts and projects.
+      </p>
+
+      <ul id="search-results" class="divide-y divide-border"></ul>
+    </section>
   </Main>
   <Footer />
 </Layout>
 
 <script>
-  function initSearch() {
-    const pageFindSearch: HTMLElement | null =
-      document.querySelector("#pagefind-search");
+  type SearchRecord = {
+    title: string;
+    description: string;
+    url: string;
+    kind: string;
+    lang: string;
+    metaText: string;
+    content: string;
+  };
 
-    if (!pageFindSearch) return;
+  type RankedSearchRecord = SearchRecord & { score: number };
 
-    const params = new URLSearchParams(window.location.search);
+  function initSearchPage() {
+    const input = document.querySelector<HTMLInputElement>("#search-input");
+    const clearButton = document.querySelector<HTMLButtonElement>(
+      "#search-clear"
+    );
+    const status = document.querySelector<HTMLParagraphElement>("#search-status");
+    const results = document.querySelector<HTMLUListElement>("#search-results");
 
-    const onIdle = window.requestIdleCallback || (cb => setTimeout(cb, 1));
+    if (!input || !clearButton || !status || !results) return;
+    if (input.dataset.initialized === "true") return;
 
-    onIdle(async () => {
-      // @ts-expect-error — Missing types for @pagefind/default-ui package.
-      const { PagefindUI } = await import("@pagefind/default-ui");
+    input.dataset.initialized = "true";
 
-      // Display warning inn dev mode
-      if (import.meta.env.DEV) {
-        pageFindSearch.innerHTML = `
-            <div class="bg-muted/75 rounded p-4 space-y-4 mb-4">
-              <p><strong>DEV mode Warning! </strong>You need to build the project at least once to see the search results during development.</p>
-              <code class="block bg-black text-white px-2 py-1 rounded">pnpm run build</code>
-            </div>
+    const escapeHtml = (value: string) =>
+      value
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+
+    const normalize = (value: string) =>
+      value.toLowerCase().replace(/\s+/g, " ").trim();
+    const isCjk = (value: string) => /[\u3400-\u9fff]/.test(value);
+    const splitTerms = (value: string) => {
+      const normalized = normalize(value);
+      if (!normalized) return [];
+      return isCjk(normalized) && !normalized.includes(" ")
+        ? [normalized]
+        : normalized.split(" ").filter(Boolean);
+    };
+
+    const buildExcerpt = (content: string, terms: string[]) => {
+      const normalized = normalize(content);
+      const firstTerm = terms.find((term: string) => normalized.includes(term));
+      if (!firstTerm) return content.slice(0, 160);
+
+      const index = normalized.indexOf(firstTerm);
+      const start = Math.max(0, index - 48);
+      const end = Math.min(content.length, index + 112);
+      const prefix = start > 0 ? "..." : "";
+      const suffix = end < content.length ? "..." : "";
+
+      return `${prefix}${content.slice(start, end).trim()}${suffix}`;
+    };
+
+    const renderResults = (records: SearchRecord[], query: string) => {
+      const terms = splitTerms(query);
+
+      if (!terms.length) {
+        status.textContent = "Type a keyword to search across posts and projects.";
+        results.innerHTML = "";
+        return;
+      }
+
+      const ranked = records
+        .map((record: SearchRecord) => {
+          const title = normalize(record.title);
+          const description = normalize(record.description);
+          const meta = normalize(record.metaText);
+          const content = normalize(record.content);
+
+          let score = 0;
+          for (const term of terms) {
+            if (title.includes(term)) score += 12;
+            else if (description.includes(term)) score += 8;
+            else if (meta.includes(term)) score += 5;
+            else if (content.includes(term)) score += 3;
+            else return null;
+          }
+
+          return { ...record, score };
+        })
+        .filter(Boolean) as RankedSearchRecord[];
+
+      const sorted = ranked
+        .sort((a: RankedSearchRecord, b: RankedSearchRecord) => {
+          if (b.score !== a.score) return b.score - a.score;
+          return a.title.localeCompare(b.title);
+        })
+        .slice(0, 20);
+
+      if (!sorted.length) {
+        status.textContent = `No results for ${query}`;
+        results.innerHTML = "";
+        return;
+      }
+
+      status.textContent = `${sorted.length} result${sorted.length > 1 ? "s" : ""} for ${query}`;
+
+      results.innerHTML = sorted
+        .map((record: RankedSearchRecord) => {
+          const excerpt = buildExcerpt(record.content || record.description, terms);
+          return `
+            <li class="py-6">
+              <div class="mb-2 flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-[0.16em] opacity-65">
+                <span>${escapeHtml(record.kind)}</span>
+                ${record.lang ? `<span>${escapeHtml(record.lang)}</span>` : ""}
+              </div>
+              <a
+                href="${record.url}"
+                class="text-xl font-semibold text-accent decoration-dashed underline-offset-4 hover:underline"
+              >
+                ${escapeHtml(record.title)}
+              </a>
+              <p class="mt-2 text-sm leading-7 opacity-80">${escapeHtml(record.description)}</p>
+              <p class="mt-3 text-sm leading-7 opacity-70">${escapeHtml(excerpt)}</p>
+            </li>
           `;
+        })
+        .join("");
+    };
+
+    const updateUrl = (query: string) => {
+      const params = new URLSearchParams(window.location.search);
+      if (query.trim()) params.set("q", query);
+      else params.delete("q");
+
+      const suffix = params.toString();
+      history.replaceState(
+        history.state,
+        "",
+        suffix ? `${window.location.pathname}?${suffix}` : window.location.pathname
+      );
+    };
+
+    const bootstrap = async () => {
+      status.textContent = "Loading search index...";
+
+      try {
+        const response = await fetch("/search-index.json");
+        const records = (await response.json()) as SearchRecord[];
+        const initialQuery = new URLSearchParams(window.location.search).get("q") ?? "";
+
+        input.value = initialQuery;
+        renderResults(records, initialQuery);
+
+        input.addEventListener("input", (event: Event) => {
+          const query = (event.currentTarget as HTMLInputElement).value;
+          updateUrl(query);
+          renderResults(records, query);
+        });
+
+        clearButton.addEventListener("click", () => {
+          input.value = "";
+          updateUrl("");
+          renderResults(records, "");
+          input.focus();
+        });
+      } catch {
+        status.textContent = "Search failed to load.";
       }
+    };
 
-      // Init pagefind ui
-      const search = new PagefindUI({
-        element: "#pagefind-search",
-        showImages: false,
-        showSubResults: true,
-        processTerm: function (term: string) {
-          params.set("q", term); // Update the `q` parameter in the URL
-          history.replaceState(history.state, "", "?" + params.toString()); // Push the new URL without reloading
-
-          const backUrl = pageFindSearch?.dataset?.backurl;
-          sessionStorage.setItem("backUrl", backUrl + "?" + params.toString());
-
-          return term;
-        },
-      });
-
-      // If search param exists (eg: search?q=astro), trigger search
-      const query = params.get("q");
-      if (query) {
-        search.triggerSearch(query);
-      }
-
-      // Reset search param if search input is cleared
-      const searchInput = document.querySelector(".pagefind-ui__search-input");
-      const clearButton = document.querySelector(".pagefind-ui__search-clear");
-      searchInput?.addEventListener("input", resetSearchParam);
-      clearButton?.addEventListener("click", resetSearchParam);
-
-      function resetSearchParam(e: Event) {
-        if ((e.target as HTMLInputElement)?.value.trim() === "") {
-          history.replaceState(history.state, "", window.location.pathname);
-        }
-      }
-    });
+    bootstrap();
   }
 
-  document.addEventListener("astro:after-swap", () => {
-    const pagefindSearch = document.querySelector("#pagefind-search");
-
-    // if pagefind search form already exists, don't initialize search component
-    if (pagefindSearch && pagefindSearch.querySelector("form")) return;
-
-    initSearch();
-  });
-  initSearch();
+  document.addEventListener("astro:page-load", initSearchPage);
+  document.addEventListener("astro:after-swap", initSearchPage);
 </script>
-
-<style is:global>
-  #pagefind-search {
-    --pagefind-ui-font: var(--font-app);
-    --pagefind-ui-text: var(--foreground);
-    --pagefind-ui-background: var(--background);
-    --pagefind-ui-border: var(--border);
-    --pagefind-ui-primary: var(--accent);
-    --pagefind-ui-tag: var(--background);
-    --pagefind-ui-border-radius: 0.375rem;
-    --pagefind-ui-border-width: 1px;
-    --pagefind-ui-image-border-radius: 8px;
-    --pagefind-ui-image-box-ratio: 3 / 2;
-
-    form::before {
-      background-color: var(--foreground);
-    }
-
-    input {
-      font-weight: 400;
-      border: 1px solid var(--border);
-    }
-
-    input:focus-visible {
-      outline: 1px solid var(--accent);
-    }
-
-    .pagefind-ui__result-title a {
-      color: var(--accent);
-      outline-offset: 1px;
-      outline-color: var(--accent);
-      text-decoration-style: dashed;
-      text-underline-offset: 4px;
-    }
-
-    .pagefind-ui__result-title a:focus-visible,
-    .pagefind-ui__search-clear:focus-visible {
-      text-decoration-line: none;
-      outline-width: 2px;
-      outline-style: dashed;
-    }
-
-    .pagefind-ui__result:last-of-type {
-      border-bottom: 0;
-    }
-
-    .pagefind-ui__result-nested .pagefind-ui__result-link:before {
-      font-family: system-ui;
-    }
-  }
-</style>

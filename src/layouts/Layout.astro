@@ -38,6 +38,7 @@ const socialImageURL = new URL(ogImage, Astro.url);
 const isArticle = Boolean(pubDatetime);
 const ogType = isArticle ? "article" : "website";
 const ogLocale = lang === "zh-CN" ? "zh_CN" : "en_US";
+const htmlLang = lang === "zh-CN" ? "zh" : lang;
 const socialImageAlt = `${title} | ${SITE.title}`;
 
 const structuredData = {
@@ -60,7 +61,7 @@ const structuredData = {
 <!doctype html>
 <html
   dir={SITE.dir}
-  lang={lang}
+  lang={htmlLang}
   class={`${scrollSmooth && "scroll-smooth"}`}
 >
   <head>

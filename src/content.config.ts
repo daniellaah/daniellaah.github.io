@@ -2,6 +2,7 @@ import { defineCollection, z } from "astro:content";
 import { SITE } from "@/config";
 
 export const BLOG_PATH = "src/content/blog";
+export const PROJECTS_PATH = "src/content/projects";
 
 const blog = defineCollection({
   schema: ({ image }) =>
@@ -21,4 +22,25 @@ const blog = defineCollection({
     }),
 });
 
-export const collections = { blog };
+const projects = defineCollection({
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      status: z
+        .enum(["active", "shipping", "archived", "lab"])
+        .default("active"),
+      order: z.number().int().default(99),
+      featured: z.boolean().default(false),
+      draft: z.boolean().default(false),
+      lang: z.enum(SITE.supportedLangs).default(SITE.lang),
+      year: z.number().int().optional(),
+      stack: z.array(z.string()).default([]),
+      demoUrl: z.string().url().optional(),
+      repoUrl: z.string().url().optional(),
+      ogImage: image().or(z.string()).optional(),
+      canonicalURL: z.string().optional(),
+    }),
+});
+
+export const collections = { blog, projects };

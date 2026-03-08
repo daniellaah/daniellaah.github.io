@@ -1,0 +1,121 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import BackButton from "@/components/BackButton.astro";
+import ProjectStatusBadge from "@/components/ProjectStatusBadge.astro";
+import LinkButton from "@/components/LinkButton.astro";
+import getSortedProjects from "@/utils/getSortedProjects";
+import { getProjectPath } from "@/utils/getProjectPath";
+import { SITE } from "@/config";
+
+export const getStaticPaths = (async () => {
+  const projects = getSortedProjects(await getCollection("projects"));
+
+  return projects.map(project => ({
+    params: { slug: getProjectPath(project.id).split("/").at(-1) },
+    props: { project, projects },
+  }));
+}) satisfies GetStaticPaths;
+
+const { project, projects } = Astro.props;
+const { Content } = await render(project);
+
+const {
+  title,
+  description,
+  lang,
+  status,
+  stack,
+  year,
+  demoUrl,
+  repoUrl,
+  canonicalURL,
+  ogImage: initOgImage,
+} = project.data;
+
+let ogImageUrl: string | undefined;
+
+if (typeof initOgImage === "string") {
+  ogImageUrl = initOgImage;
+} else if (initOgImage?.src) {
+  ogImageUrl = initOgImage.src;
+}
+
+const ogImage = ogImageUrl
+  ? new URL(ogImageUrl, Astro.url.origin).href
+  : undefined;
+
+const relatedProjects = projects
+  .filter(({ id }) => id !== project.id)
+  .slice(0, 3);
+---
+
+<Layout
+  title={`${title} | Projects | ${SITE.title}`}
+  description={description}
+  lang={lang}
+  canonicalURL={canonicalURL}
+  ogImage={ogImage}
+>
+  <Header />
+  <BackButton />
+  <main id="main-content" class="app-layout pb-12">
+    <section class="grid gap-8 border-b border-border pb-8 lg:grid-cols-[minmax(0,1.4fr)_20rem]">
+      <div>
+        <div class="flex flex-wrap items-center gap-3">
+          <ProjectStatusBadge status={status} />
+          {year && <span class="text-sm opacity-65">{year}</span>}
+        </div>
+        <h1 class="mt-5 text-3xl font-semibold text-accent sm:text-4xl">
+          {title}
+        </h1>
+        <p class="mt-4 max-w-3xl text-base leading-8 opacity-85">
+          {description}
+        </p>
+      </div>
+
+      <aside class="rounded-[2rem] border border-border p-5">
+        <p class="text-sm font-medium tracking-[0.18em] uppercase opacity-70">
+          Project Snapshot
+        </p>
+        {
+          stack.length > 0 && (
+            <ul class="mt-4 flex flex-wrap gap-2">
+              {stack.map(item => (
+                <li class="rounded-full bg-muted/55 px-3 py-1 text-xs font-medium">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          )
+        }
+        <div class="mt-5 flex flex-wrap gap-3">
+          {demoUrl && <LinkButton href={demoUrl}>Live site</LinkButton>}
+          {repoUrl && <LinkButton href={repoUrl}>Repository</LinkButton>}
+        </div>
+      </aside>
+    </section>
+
+    <article
+      class="app-prose mt-8 w-full max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"
+      data-pagefind-body
+    >
+      <Content />
+    </article>
+
+    {
+      relatedProjects.length > 0 && (
+        <section class="mt-12 border-t border-border pt-8">
+          <h2 class="text-2xl font-semibold">More Projects</h2>
+          <div class="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {relatedProjects.map(item => <LinkButton href={getProjectPath(item.id)}>{item.data.title}</LinkButton>)}
+          </div>
+        </section>
+      )
+    }
+  </main>
+  <Footer />
+</Layout>
