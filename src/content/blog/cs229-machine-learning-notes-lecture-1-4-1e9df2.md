@@ -2,6 +2,7 @@
 pubDatetime: 2016-11-19
 modDatetime: 2016-11-19
 title: "CS229机器学习笔记(三)-指数分布族, 广义线性模型"
+slug: "cs229-machine-learning-notes-3-exponential-family-generalized-linear-model"
 tags:
   - "Machine Learning"
 lang: "zh-CN"

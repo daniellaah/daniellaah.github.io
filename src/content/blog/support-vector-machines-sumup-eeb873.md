@@ -2,6 +2,7 @@
 pubDatetime: 2017-03-20
 modDatetime: 2017-03-20
 title: "支持向量机总结(上)"
+slug: "support-vector-machines-sumup"
 tags:
   - "Machine Learning"
 lang: "zh-CN"

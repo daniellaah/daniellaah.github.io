@@ -2,6 +2,7 @@
 pubDatetime: 2016-06-17
 modDatetime: 2016-06-17
 title: "Coursera机器学习笔记(十三) - 非监督学习"
+slug: "machine-learning-andrew-ng-my-notes-week-8-unsupervised-learning"
 tags:
   - "Machine Learning"
   - "Notes"

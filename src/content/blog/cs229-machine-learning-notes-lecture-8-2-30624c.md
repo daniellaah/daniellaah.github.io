@@ -2,6 +2,7 @@
 pubDatetime: 2016-11-29
 modDatetime: 2016-11-29
 title: "CS229机器学习笔记(九)-SVM之SMO算法"
+slug: "cs229-machine-learning-notes-lecture-8-2"
 tags:
   - "Machine Learning"
   - "CS229"
@@ -19,7 +20,7 @@ description: "课程信息: 主页 Youtube 相关阅读:"
 6. [机器学习笔记](https://github.com/zlotus/notes-LSJU-machine-learning)
 
 - - - - -
-接上篇: [CS229机器学习笔记(七)-SVM之软间隔](/posts/cs229-machine-learning-notes-lecture-8-1-1b0e33/)
+接上篇: [CS229机器学习笔记(七)-SVM之软间隔](/posts/cs229-machine-learning-notes-lecture-8-1/)
 
 在将SMO之前, 我们先来看看什么是坐标上升法(coordinate ascent).
 ## 坐标上升

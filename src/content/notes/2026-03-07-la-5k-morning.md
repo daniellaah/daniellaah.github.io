@@ -1,5 +1,6 @@
 ---
 title: "LA 5K in the morning"
+slug: "2026-03-07-la-5k-morning"
 description: "今天参加了洛杉矶 5K 跑步比赛."
 noteDate: 2026-03-07
 modDatetime: 2026-03-15

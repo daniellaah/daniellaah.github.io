@@ -2,6 +2,7 @@
 pubDatetime: 2016-06-20
 modDatetime: 2016-06-20
 title: "Coursera机器学习笔记(十五) - 异常检测"
+slug: "machine-learning-andrew-ng-my-notes-week-9-anomaly-detection"
 tags:
   - "Machine Learning"
   - "Notes"

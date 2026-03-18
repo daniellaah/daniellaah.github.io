@@ -2,6 +2,7 @@
 pubDatetime: 2016-11-17
 modDatetime: 2016-11-17
 title: "CS229机器学习笔记(一) - 梯度下降, 正规方程, 局部加权"
+slug: "cs229-machine-learning-notes-1-gradient-descent-normal-equation"
 tags:
   - "Machine Learning"
 lang: "zh-CN"

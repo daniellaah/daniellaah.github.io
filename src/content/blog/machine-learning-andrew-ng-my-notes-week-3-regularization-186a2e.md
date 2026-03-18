@@ -2,6 +2,7 @@
 pubDatetime: 2016-04-28
 modDatetime: 2016-04-28
 title: "Coursera机器学习笔记(六) - 正则化"
+slug: "machine-learning-andrew-ng-my-notes-week-3-regularization"
 tags:
   - "Machine Learning"
   - "Notes"

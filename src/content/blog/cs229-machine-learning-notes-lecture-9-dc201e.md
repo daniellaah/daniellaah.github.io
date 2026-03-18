@@ -2,6 +2,7 @@
 pubDatetime: 2017-02-18
 modDatetime: 2017-02-18
 title: "CS229机器学习笔记(十) - Learning Theory"
+slug: "cs229-machine-learning-notes-lecture-9"
 tags:
   - "Machine Learning"
 lang: "zh-CN"

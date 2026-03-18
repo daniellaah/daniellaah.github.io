@@ -2,6 +2,7 @@
 pubDatetime: 2016-04-28
 modDatetime: 2016-04-28
 title: "Coursera机器学习笔记(七) - 来自吴恩达的狗粮和鸡汤"
+slug: "machine-learning-andrew-ng-my-notes-week-3-chicken-soup"
 tags:
   - "Notes"
 lang: "zh-CN"

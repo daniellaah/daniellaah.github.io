@@ -1,5 +1,6 @@
 ---
 title: "Start Video Journal from Today!"
+slug: "2026-03-02-start-video-journal"
 description: "Hope I can stick with it."
 noteDate: 2026-03-02
 modDatetime: 2026-03-15

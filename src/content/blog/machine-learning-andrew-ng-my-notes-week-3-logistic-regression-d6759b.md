@@ -2,6 +2,7 @@
 pubDatetime: 2016-04-26
 modDatetime: 2016-04-26
 title: "Coursera机器学习笔记(五) - Logistic Regression"
+slug: "machine-learning-andrew-ng-my-notes-week-3-logistic-regression"
 tags:
   - "Machine Learning"
   - "Notes"

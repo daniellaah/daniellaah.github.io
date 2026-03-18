@@ -2,6 +2,7 @@
 pubDatetime: 2016-11-18
 modDatetime: 2016-11-18
 title: "CS229机器学习笔记(二) - Logistic回归, 牛顿方法"
+slug: "cs229-machine-learning-notes-2-logistic-regression-newtons-method"
 tags:
   - "Machine Learning"
 lang: "zh-CN"

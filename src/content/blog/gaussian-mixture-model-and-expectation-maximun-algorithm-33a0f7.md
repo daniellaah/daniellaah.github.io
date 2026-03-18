@@ -2,6 +2,7 @@
 pubDatetime: 2018-01-24
 modDatetime: 2018-01-24
 title: "高斯混合模型和EM算法"
+slug: "gaussian-mixture-model-and-expectation-maximun-algorithm"
 tags:
   - "Machine Learning"
   - "GMM"

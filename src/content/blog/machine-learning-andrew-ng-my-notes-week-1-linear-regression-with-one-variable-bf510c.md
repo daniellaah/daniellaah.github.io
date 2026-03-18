@@ -2,6 +2,7 @@
 pubDatetime: 2016-04-08
 modDatetime: 2016-04-08
 title: "Coursera机器学习笔记(二) - 单变量线性回归"
+slug: "machine-learning-andrew-ng-my-notes-week-1-linear-regression-with-one-variable"
 tags:
   - "Machine Learning"
   - "Notes"

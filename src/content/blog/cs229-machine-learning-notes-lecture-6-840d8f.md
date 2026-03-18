@@ -2,6 +2,7 @@
 pubDatetime: 2016-11-21
 modDatetime: 2016-11-21
 title: "CS229机器学习笔记(五)-SVM之函数间隔, 几何间隔"
+slug: "cs229-machine-learning-notes-lecture-6"
 tags:
   - "Machine Learning"
   - "CS229"

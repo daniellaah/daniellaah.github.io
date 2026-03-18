@@ -11,8 +11,8 @@ export async function GET() {
     title: SITE.title,
     description: SITE.desc,
     site: SITE.website,
-    items: sortedPosts.map(({ data, id, filePath }) => ({
-      link: getPath(id, filePath),
+    items: sortedPosts.map(({ data, id, slug, filePath }) => ({
+      link: getPath(id, filePath, true, slug),
       title: data.title,
       description: data.description,
       pubDate: new Date(data.pubDatetime),

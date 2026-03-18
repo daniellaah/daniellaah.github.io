@@ -2,6 +2,7 @@
 pubDatetime: 2016-04-02
 modDatetime: 2016-04-02
 title: "如何在Hexo博客中插入数学公式"
+slug: "mathmatical-formula-within-markdown"
 tags:
   - "Markdown"
   - "MathJax"

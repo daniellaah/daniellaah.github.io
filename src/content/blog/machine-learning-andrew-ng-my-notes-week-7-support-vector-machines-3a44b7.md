@@ -2,6 +2,7 @@
 pubDatetime: 2016-05-26
 modDatetime: 2016-05-26
 title: "Coursera机器学习笔记(十二) - SVM"
+slug: "machine-learning-andrew-ng-my-notes-week-7-support-vector-machines"
 tags:
   - "Machine Learning"
   - "Notes"

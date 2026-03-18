@@ -2,6 +2,7 @@
 pubDatetime: 2016-05-19
 modDatetime: 2016-05-19
 title: "Coursera机器学习笔记(十) - 机器学习经验方法总结"
+slug: "machine-learning-andrew-ng-my-notes-week-6-advice-for-applying-machine-learning"
 tags:
   - "Machine Learning"
   - "Notes"

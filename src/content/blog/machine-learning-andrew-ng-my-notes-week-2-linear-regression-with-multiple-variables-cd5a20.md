@@ -2,6 +2,7 @@
 pubDatetime: 2016-04-11
 modDatetime: 2016-04-11
 title: "Coursera机器学习笔记(三) - 多变量线性回归"
+slug: "machine-learning-andrew-ng-my-notes-week-2-linear-regression-with-multiple-variables"
 tags:
   - "Machine Learning"
   - "Notes"

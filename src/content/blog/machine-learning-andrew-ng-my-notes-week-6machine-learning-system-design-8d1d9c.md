@@ -2,6 +2,7 @@
 pubDatetime: 2016-05-23
 modDatetime: 2016-05-23
 title: "Coursera机器学习笔记(十一) - 机器学习系统设计"
+slug: "machine-learning-andrew-ng-my-notes-week-6machine-learning-system-design"
 tags:
   - "Machine Learning"
   - "Notes"

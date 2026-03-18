@@ -2,6 +2,7 @@
 pubDatetime: 2016-11-28
 modDatetime: 2016-11-28
 title: "CS229机器学习笔记(七)-SVM之Kernels"
+slug: "cs229-machine-learning-notes-lecture-8"
 tags:
   - "Machine Learning"
   - "CS229"
@@ -18,10 +19,10 @@ description: "课程信息: 主页 Youtube 相关阅读:"
 6. [机器学习笔记](https://github.com/zlotus/notes-LSJU-machine-learning)
 
 - - - - -
-接上篇: [CS229机器学习笔记(六)-SVM之拉格朗日对偶, 最优间隔分类器](/posts/cs229-machine-learning-notes-lecture-7-76e6e9/)
+接上篇: [CS229机器学习笔记(六)-SVM之拉格朗日对偶, 最优间隔分类器](/posts/cs229-machine-learning-notes-lecture-7/)
 
 ## Kernels
-在我们讨论线性回归的时候, 提到过[polynomial regression](/posts/machine-learning-andrew-ng-my-notes-week-2-linear-regression-with-multiple-variables-cd5a20/). 假设$x$是房子的面积, 我们使用三个特征$x, x^2, x^3$来构造一个三次多项式. 这里有两个概念要区分一下. 这里房子的面积$x$叫做属性(attribute), 我们通过这个$x$映射得到的$x, x^2, x^3$叫做特征(feature). 我们使用$\phi$来表示这种从属性到特征的特征映射(feature mapping). 例如, 在这个例子中:
+在我们讨论线性回归的时候, 提到过[polynomial regression](/posts/machine-learning-andrew-ng-my-notes-week-2-linear-regression-with-multiple-variables/). 假设$x$是房子的面积, 我们使用三个特征$x, x^2, x^3$来构造一个三次多项式. 这里有两个概念要区分一下. 这里房子的面积$x$叫做属性(attribute), 我们通过这个$x$映射得到的$x, x^2, x^3$叫做特征(feature). 我们使用$\phi$来表示这种从属性到特征的特征映射(feature mapping). 例如, 在这个例子中:
 $$
 \phi(x) = \begin{bmatrix}  x \\\ x^2 \\\ x^3 \end{bmatrix}
 $$

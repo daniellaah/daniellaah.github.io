@@ -2,6 +2,7 @@
 pubDatetime: 2016-04-06
 modDatetime: 2016-04-06
 title: "Coursera机器学习笔记(一) - 监督学习vs无监督学习"
+slug: "machine-learning-andrew-ng-my-notes-week-1-introduction"
 tags:
   - "Machine Learning"
   - "Notes"

@@ -2,6 +2,7 @@
 pubDatetime: 2017-09-06
 modDatetime: 2017-09-06
 title: "deeplearning-ai-专项课程二第一周"
+slug: "deeplearning-ai-improving-deep-neural-networks-week1"
 tags:
   - "Machine Learning"
   - "Deep Learning"
@@ -12,7 +13,7 @@ description: "在深度学习专项课程的第一门课Neural Networks and Deep
 ---
 ![](http://7xrrje.com1.z0.glb.clouddn.com/screenshot_1325.png)
 在深度学习专项课程的第一门课Neural Networks and Deep Learning中, 我们主要学习了深度神经网络中的前向反向传播, 并成功地使用Python+Numpy实现了任意结构的二分类深度神经网络. 而从这次开始我们要学习专项课程中第二门课Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization. 这次的笔记为第一周Practical aspects of Deep Learning, 主要内容包括: 数据集分割, 偏差与方差, 正则化, Normalization,  梯度检查等. 在学完本周的内容后, 我们会使用Python实现不同的权重初始化, L2正则, Dropout正则以及梯度下降.
-注: 本课程适合有一定基本概念的同学使用, 如果没有任何基础, 可以先学习Andrew Ng在Coursera上的机器学习课程. 课程见这里: [Coursera Machine Learning](https://www.coursera.org/learn/machine-learning), 这门课程我也做了[笔记](/posts/machine-learning-andrew-ng-my-notes-ceed8d/), 可供参考.
+注: 本课程适合有一定基本概念的同学使用, 如果没有任何基础, 可以先学习Andrew Ng在Coursera上的机器学习课程. 课程见这里: [Coursera Machine Learning](https://www.coursera.org/learn/machine-learning), 这门课程我也做了[笔记](/posts/machine-learning-andrew-ng-my-notes/), 可供参考.
 
 - - - - -
 ## 一. 训练集, 验证集与测试集

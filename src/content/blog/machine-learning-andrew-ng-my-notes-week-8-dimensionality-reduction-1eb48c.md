@@ -2,6 +2,7 @@
 pubDatetime: 2017-01-01
 modDatetime: 2017-01-01
 title: "Coursera机器学习笔记(十四) - 数据降维"
+slug: "machine-learning-andrew-ng-my-notes-week-8-dimensionality-reduction"
 tags:
   - "Machine Learning"
   - "Notes"

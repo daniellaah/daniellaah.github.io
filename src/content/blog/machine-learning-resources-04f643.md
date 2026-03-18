@@ -2,6 +2,7 @@
 pubDatetime: 2016-03-26
 modDatetime: 2018-06-09
 title: "机器学习资源汇总"
+slug: "machine-learning-resources"
 tags:
   - "Machine Learning"
 lang: "zh-CN"
@@ -40,18 +41,18 @@ NA
 ## 机器学习
 - ###  Coursera机器学习 - Andrew Ng
     - [课程地址](https://www.coursera.org/learn/machine-learning)
-    - [我的笔记](/posts/machine-learning-andrew-ng-my-notes-ceed8d/)
+    - [我的笔记](/posts/machine-learning-andrew-ng-my-notes/)
 - ### CS229 Stanford - Andrew Ng
     - [课程官网](http://cs229.stanford.edu/)
     - [Youtube](https://www.youtube.com/watch?v=UzxYlbK2c7E&list=PLLlzPed-cDvxR7tscN2wcwZ947AzNpW_1)
-    - [我的笔记](/posts/cs229-machine-learning-notes-toc-5106bd/)
+    - [我的笔记](/posts/cs229-machine-learning-notes-toc/)
     - [网易公开课](http://open.163.com/special/opencourse/machinelearning.html)
 - ### [《统计学习方法》- 李航](https://book.douban.com/subject/10590856/)
 - ### [《机器学习》 - 周志华](https://book.douban.com/subject/26708119/)
 
 ## 深度学习
 - ### [Coursera Deep Learning Sepecialization - deeplearning.ai ](https://www.coursera.org/specializations/deep-learning)
-- ### [Deep Learning Sepecialization学习笔记](/posts/deeplearning-ai-toc-60d1e9/)
+- ### [Deep Learning Sepecialization学习笔记](/posts/deeplearning-ai-toc/)
 
 ## 自然语言处理
 [Speech and Language Processing](https://web.stanford.edu/~jurafsky/slp3/)

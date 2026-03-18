@@ -1,5 +1,6 @@
 ---
 title: "Welcome to BoGao.Dev"
+slug: "2026-02-27-restart-myblog-after-10-years"
 description: "十年之后, 又开始折腾博客了."
 noteDate: 2026-02-27
 modDatetime: 2026-03-15

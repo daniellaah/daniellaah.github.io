@@ -10,9 +10,9 @@ type Props = CollectionEntry<"notes"> & {
   compact?: boolean;
 };
 
-const { id, data, compact = false } = Astro.props;
+const { id, slug, data, compact = false } = Astro.props;
 const { title, description, noteDate, location, photos } = data;
-const href = getNotePath(id);
+const href = getNotePath(id, slug);
 const photo = photos[0];
 const photoSrc = photo;
 const heading = title ?? dayjs.utc(noteDate).format("MMM D, YYYY");

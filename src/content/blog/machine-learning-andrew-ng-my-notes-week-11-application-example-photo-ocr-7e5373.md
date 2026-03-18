@@ -2,6 +2,7 @@
 pubDatetime: 2016-06-27
 modDatetime: 2016-06-27
 title: "Coursera机器学习笔记(十八) - Photo OCR"
+slug: "machine-learning-andrew-ng-my-notes-week-11-application-example-photo-ocr"
 tags:
   - "Machine Learning"
   - "Notes"

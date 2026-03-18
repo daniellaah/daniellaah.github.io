@@ -2,6 +2,7 @@
 pubDatetime: 2016-06-21
 modDatetime: 2016-06-21
 title: "Coursera机器学习笔记(十六) - 推荐系统"
+slug: "machine-learning-andrew-ng-my-notes-week-9-recommender-systems"
 tags:
   - "Machine Learning"
   - "Notes"

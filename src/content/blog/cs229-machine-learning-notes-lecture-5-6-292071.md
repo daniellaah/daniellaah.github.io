@@ -2,6 +2,7 @@
 pubDatetime: 2016-11-21
 modDatetime: 2016-11-21
 title: "CS229机器学习笔记(四)-生成学习算法, 朴素贝叶斯, 多项式事件模型"
+slug: "cs229-machine-learning-notes-lecture-5-6"
 tags:
   - "Machine Learning"
   - "CS229"
@@ -143,8 +144,8 @@ log似然函数为:
 其中$|V|$为字典中单词的个数. 
 
 视频中的神经网络部分可以参考: 
-1.[我的机器学习笔记(九) - 神经网络(上)](/posts/machine-learning-andrew-ng-my-notes-week-4-neural-networks-representation-32b920/)
-2.[我的机器学习笔记(九) - 神经网络(下)](/posts/machine-learning-andrew-ng-my-notes-week-5-neural-networks-learning-2f45f7/)
+1.[我的机器学习笔记(九) - 神经网络(上)](/posts/machine-learning-andrew-ng-my-notes-week-4-neural-networks-representation/)
+2.[我的机器学习笔记(九) - 神经网络(下)](/posts/machine-learning-andrew-ng-my-notes-week-5-neural-networks-learning/)
 
 参考: 
 1. [机器学习笔记-子实](https://github.com/zlotus/notes-LSJU-machine-learning)

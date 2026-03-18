@@ -25,7 +25,7 @@ export const GET: APIRoute = async () => {
     ...posts.map(post => ({
       title: post.data.title,
       description: post.data.description,
-      url: getPath(post.id, post.filePath),
+      url: getPath(post.id, post.filePath, true, post.slug),
       kind: "Post",
       lang: post.data.lang,
       metaText: post.data.tags.join(" "),
@@ -49,7 +49,7 @@ export const GET: APIRoute = async () => {
         note.data.title ??
         new Date(note.data.noteDate).toISOString().slice(0, 10),
       description: note.data.description,
-      url: getNotePath(note.id),
+      url: getNotePath(note.id, note.slug),
       kind: "Note",
       lang: note.data.lang,
       metaText: [note.data.location ?? "", ...note.data.tags].join(" "),

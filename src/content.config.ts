@@ -12,6 +12,7 @@ const blog = defineCollection({
       pubDatetime: z.coerce.date(),
       modDatetime: z.coerce.date().optional().nullable(),
       title: z.string(),
+      slug: z.string().trim().min(1).optional(),
       featured: z.boolean().optional(),
       draft: z.boolean().optional(),
       tags: z.array(z.string()).default(["others"]),
@@ -48,6 +49,7 @@ const notes = defineCollection({
   schema: () =>
     z.object({
       title: z.string().trim().min(1).optional(),
+      slug: z.string().trim().min(1).optional(),
       description: z.string().trim().min(1),
       noteDate: z.coerce.date(),
       modDatetime: z.coerce.date().optional().nullable(),

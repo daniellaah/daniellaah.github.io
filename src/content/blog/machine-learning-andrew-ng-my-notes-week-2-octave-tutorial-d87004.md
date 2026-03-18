@@ -2,6 +2,7 @@
 pubDatetime: 2016-04-19
 modDatetime: 2016-04-19
 title: "Coursera机器学习笔记(四) - Octave教程"
+slug: "machine-learning-andrew-ng-my-notes-week-2-octave-tutorial"
 tags:
   - "Machine Learning"
   - "Notes"

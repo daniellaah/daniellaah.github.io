@@ -2,6 +2,7 @@
 pubDatetime: 2016-05-09
 modDatetime: 2016-05-09
 title: "Coursera机器学习笔记(八) - 神经网络(上)"
+slug: "machine-learning-andrew-ng-my-notes-week-4-neural-networks-representation"
 tags:
   - "Machine Learning"
   - "Notes"

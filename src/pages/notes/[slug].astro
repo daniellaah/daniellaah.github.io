@@ -17,7 +17,7 @@ export const getStaticPaths = (async () => {
   const notes = getSortedNotes(await getCollection("notes"));
 
   return notes.map(note => ({
-    params: { slug: getNotePath(note.id).split("/").at(-1) },
+    params: { slug: getNotePath(note.id, note.slug).split("/").at(-1) },
     props: { note },
   }));
 }) satisfies GetStaticPaths;

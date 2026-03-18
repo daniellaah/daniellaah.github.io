@@ -2,6 +2,7 @@
 pubDatetime: 2016-06-26
 modDatetime: 2016-06-26
 title: "Coursera机器学习笔记(十七) - 大规模机器学习"
+slug: "machine-learning-andrew-ng-my-notes-week-10-large-scale-machine-learning"
 tags:
   - "Machine Learning"
   - "Notes"

@@ -1,4 +1,5 @@
 import { BLOG_PATH } from "@/content.config";
+import { getLegacySlug, getResolvedSlug } from "./contentSlug";
 import { slugifyStr } from "./slugify";
 
 /**
@@ -11,7 +12,8 @@ import { slugifyStr } from "./slugify";
 export function getPath(
   id: string,
   filePath: string | undefined,
-  includeBase = true
+  includeBase = true,
+  explicitSlug?: string
 ) {
   const normalizeSegment = (segment: string) =>
     slugifyStr(segment.replace(/\.(md|mdx)$/i, ""));
@@ -25,13 +27,35 @@ export function getPath(
     .map(segment => normalizeSegment(segment)); // slugify each segment path
 
   const basePath = includeBase ? "/posts" : "";
-
-  // Making sure `id` does not contain the directory
-  const blogId = id.split("/");
-  const slug =
-    blogId.length > 0 ? blogId.slice(-1).map(normalizeSegment) : blogId;
+  const slug = getResolvedSlug(id, explicitSlug);
 
   // If not inside the sub-dir, simply return the file path
+  if (!pathSegments || pathSegments.length < 1) {
+    return [basePath, slug].join("/");
+  }
+
+  return [basePath, ...pathSegments, slug].join("/");
+}
+
+export function getLegacyPath(
+  id: string,
+  filePath: string | undefined,
+  includeBase = true
+) {
+  const normalizeSegment = (segment: string) =>
+    slugifyStr(segment.replace(/\.(md|mdx)$/i, ""));
+
+  const pathSegments = filePath
+    ?.replace(BLOG_PATH, "")
+    .split("/")
+    .filter(path => path !== "")
+    .filter(path => !path.startsWith("_"))
+    .slice(0, -1)
+    .map(segment => normalizeSegment(segment));
+
+  const basePath = includeBase ? "/posts" : "";
+  const slug = getLegacySlug(id);
+
   if (!pathSegments || pathSegments.length < 1) {
     return [basePath, slug].join("/");
   }

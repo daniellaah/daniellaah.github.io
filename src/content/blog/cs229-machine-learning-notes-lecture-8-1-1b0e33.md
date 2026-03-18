@@ -2,6 +2,7 @@
 pubDatetime: 2016-11-29
 modDatetime: 2016-11-29
 title: "CS229机器学习笔记(八)-SVM之软间隔"
+slug: "cs229-machine-learning-notes-lecture-8-1"
 tags:
   - "Machine Learning"
   - "CS229"
@@ -18,7 +19,7 @@ description: "课程信息: 主页 Youtube 相关阅读:"
 6. [机器学习笔记](https://github.com/zlotus/notes-LSJU-machine-learning)
 
 - - - - -
-接上篇: [CS229机器学习笔记(七)-SVM之Kernels](/posts/cs229-machine-learning-notes-lecture-8-a0e24e/)
+接上篇: [CS229机器学习笔记(七)-SVM之Kernels](/posts/cs229-machine-learning-notes-lecture-8/)
 ## 软间隔分类器
 软间隔分类器(soft margin classifier)可以解决两种情况. 
 前面我们都假定数据是线性可分的, 但实际上数据即使映射到了高维也不一定是线性可分. 这个时候就要对超平面进行一个调整, 即这里所说的软间隔. 

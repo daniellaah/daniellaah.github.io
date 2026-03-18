@@ -2,6 +2,7 @@
 pubDatetime: 2016-05-13
 modDatetime: 2016-05-13
 title: "Coursera机器学习笔记(九) - 神经网络(下)"
+slug: "machine-learning-andrew-ng-my-notes-week-5-neural-networks-learning"
 tags:
   - "Machine Learning"
   - "Notes"
