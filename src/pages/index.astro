@@ -3,119 +3,56 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import Socials from "@/components/Socials.astro";
-import LinkButton from "@/components/LinkButton.astro";
-import Card from "@/components/Card.astro";
+import PostsList from "@/components/PostsList.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
-import IconRss from "@/assets/icons/IconRss.svg";
-import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
-import { SOCIALS } from "@/constants";
 
 const posts = await getCollection("blog");
-
 const sortedPosts = getSortedPosts(posts);
-const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
+const latestPosts = sortedPosts.slice(0, 10);
 ---
 
-<Layout lang="zh-CN">
+<Layout lang="en">
   <Header />
   <main id="main-content" data-layout="index" class="app-layout">
-    <section
-      id="hero"
-      class:list={[
-        "grid gap-8 border-b border-border pt-10 pb-8 sm:pt-14",
-        "lg:grid-cols-[minmax(0,1.5fr)_minmax(18rem,0.9fr)]",
-      ]}
-    >
-      <div>
-        <div class="flex items-center gap-3">
-          <h1 class="inline-block text-4xl font-bold sm:text-6xl">
-            BoGao.Dev
-          </h1>
-          <a
-            target="_blank"
-            href="/rss.xml"
-            class="inline-block"
-            aria-label="rss feed"
-            title="RSS Feed"
-          >
-            <IconRss
-              width={20}
-              height={20}
-              class="scale-125 stroke-accent stroke-3 rtl:-rotate-90"
-            />
-            <span class="sr-only">RSS Feed</span>
-          </a>
-        </div>
-        <p class="mt-6 max-w-2xl text-lg leading-8">
-          我用这个博客整理机器学习笔记、LLM workflow 和个人实验。
-          这里更像一个长期积累判断的研究日志，而不是通用模板站。
-        </p>
-        <p class="mt-3 max-w-2xl text-base leading-7 opacity-80">
-          Focused on models, tooling, and experiments that are worth keeping
-          after the first burst of curiosity is gone.
-        </p>
-        <div class="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium">
-          <span>Astro + Vercel</span>
-          <span>ML + LLM + Experiments</span>
-        </div>
-        <div class="mt-7 flex flex-wrap gap-4">
-          <LinkButton
-            href="/posts/"
-            class="rounded-full border border-border px-5 py-2.5 hover:border-accent"
-          >
-            Read Posts
-            <IconArrowRight class="inline-block rtl:-rotate-180" />
-          </LinkButton>
-          <LinkButton
-            href="/about/"
-            class="rounded-full border border-border px-5 py-2.5 hover:border-accent"
-          >
-            About Bo
-          </LinkButton>
-        </div>
-      </div>
+    <section id="hero" class="pt-12 pb-8 sm:pt-16">
+      <div class="mx-auto max-w-4xl">
+        <img
+          src="/images/site/avatar.jpg"
+          alt="Portrait of Bo"
+          class="mx-auto h-28 w-28 rounded-full border border-border object-cover sm:h-32 sm:w-32"
+        />
 
-      <aside class="rounded-3xl border border-border p-5 sm:p-6">
-        <p class="text-sm font-medium tracking-[0.18em] text-accent uppercase">
-          Current Focus
-        </p>
-        <ul class="mt-4 space-y-4 text-sm leading-7">
-          <li>
-            把早年的机器学习课程笔记重新整理进统一的内容结构里，清掉历史迁移留下的问题。
-          </li>
-          <li>
-            用 notes 和 projects 记录 LLM workflow、小工具和实验中的判断，而不是只留下聊天记录。
-          </li>
-          <li>
-            保持发布链路简单，让博客既能放长文，也能承载短笔记、实验日志和项目页面。
-          </li>
-        </ul>
-        {
-          SOCIALS.length > 0 && (
-            <div class="mt-5 border-t border-border pt-4">
-              <p class="mb-2 text-xs tracking-[0.18em] uppercase opacity-70">
-                Find me
-              </p>
-              <Socials />
-            </div>
-          )
-        }
-      </aside>
+        <h1 class="mt-6 text-center text-3xl font-bold leading-tight sm:text-4xl">
+          Hey, I&apos;m Bo
+        </h1>
+
+        <div class="mx-auto mt-6 max-w-3xl space-y-4 text-center text-base leading-7 opacity-85 sm:text-[1.15rem] sm:leading-7">
+          <p>
+            I write about machine learning, LLM workflows, and technical
+            experiments that are worth keeping around.
+          </p>
+          <p>
+            Most entries are working notes rather than polished essays. The
+            goal is to keep the archive useful, searchable, and easy to
+            revisit.
+          </p>
+        </div>
+
+      </div>
     </section>
 
-    {
-      featuredPosts.length > 0 && (
-        <section class="pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">Featured</h2>
-          <ul>
-            {featuredPosts.map(data => (
-              <Card variant="h3" {...data} />
-            ))}
-          </ul>
-        </section>
-      )
-    }
+    <section class="pb-8">
+      <div class="mx-auto max-w-4xl border-t border-border pt-10">
+        <div class="flex items-end justify-between gap-4">
+          <h2 class="text-3xl font-semibold sm:text-4xl">Latest Posts</h2>
+          <a href="/posts/" class="text-sm opacity-70 hover:text-accent hover:opacity-100">
+            View all
+          </a>
+        </div>
+
+        <PostsList posts={latestPosts} />
+      </div>
+    </section>
   </main>
   <Footer />
 </Layout>
