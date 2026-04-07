@@ -33,6 +33,7 @@ const projects = defineCollection({
         .enum(["active", "shipping", "archived", "lab"])
         .default("active"),
       order: z.number().int().default(99),
+      startDate: z.coerce.date().optional().nullable(),
       featured: z.boolean().default(false),
       draft: z.boolean().default(false),
       lang: z.enum(SITE.supportedLangs).default(SITE.lang),

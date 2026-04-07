@@ -13,8 +13,24 @@ export default function getSortedProjects(
   return projects
     .filter(({ data }) => !data.draft)
     .sort((a, b) => {
+      const aUsesAutoDate = a.data.order === -1;
+      const bUsesAutoDate = b.data.order === -1;
+
       if (a.data.featured !== b.data.featured) {
         return Number(b.data.featured) - Number(a.data.featured);
+      }
+
+      if (aUsesAutoDate !== bUsesAutoDate) {
+        return Number(aUsesAutoDate) - Number(bUsesAutoDate);
+      }
+
+      if (aUsesAutoDate && bUsesAutoDate) {
+        const aStartDate = a.data.startDate?.getTime() ?? 0;
+        const bStartDate = b.data.startDate?.getTime() ?? 0;
+
+        if (aStartDate !== bStartDate) {
+          return bStartDate - aStartDate;
+        }
       }
 
       if (a.data.order !== b.data.order) {

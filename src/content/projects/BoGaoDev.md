@@ -1,16 +1,16 @@
 ---
-title: "Bo's Blog"
+title: "BoGao.Dev"
 description: "A personal publishing system for machine learning notes, LLM workflow write-ups, project pages, and lightweight research logs."
 status: "shipping"
-order: 1
-featured: true
+order: -1
+startDate: 2026-02-04
+featured: false
 lang: "en"
 year: 2026
 stack:
   - Astro
-  - TypeScript
+  - GitHub
   - Vercel
-  - Markdown
 demoUrl: "https://bogao.dev"
 repoUrl: "https://github.com/daniellaah/daniellaah.github.io"
 ---

@@ -19,26 +19,21 @@ const visibleStack = compact ? stack.slice(0, 3) : stack.slice(0, 4);
     { "p-5": compact },
   ]}
 >
-  <div class="grid gap-6 md:grid-cols-[minmax(0,1fr)_max-content] md:items-start">
-    <div>
-      <div class="flex flex-wrap items-center gap-3">
-        <ProjectStatusBadge status={status} />
-        {year && <span class="text-sm opacity-65">{year}</span>}
-      </div>
-
-      <h2 class="mt-4 text-2xl font-semibold text-accent">
+  <div>
+    <div class="flex items-baseline gap-4">
+      <h2 class="min-w-0 text-2xl font-semibold text-accent">
         <a href={href} class="hover:underline decoration-dashed underline-offset-4">
           {title}
         </a>
       </h2>
-
-      <p class="mt-3 max-w-3xl text-sm leading-7 opacity-80">{description}</p>
     </div>
 
-    <div class="md:text-right">
+    <div class="mt-4 flex flex-wrap items-center gap-3">
+      <ProjectStatusBadge status={status} />
+      {year && <span class="text-sm opacity-65">{year}</span>}
       {
         visibleStack.length > 0 && (
-          <ul class="flex flex-nowrap gap-2 overflow-x-auto md:justify-end md:overflow-visible">
+          <ul class="flex flex-nowrap gap-2 overflow-x-auto md:overflow-visible">
             {visibleStack.map(item => (
               <li class="rounded-full bg-muted/55 px-3 py-1 text-xs font-medium whitespace-nowrap">
                 {item}
@@ -47,12 +42,10 @@ const visibleStack = compact ? stack.slice(0, 3) : stack.slice(0, 4);
           </ul>
         )
       }
+    </div>
 
-      <div class="mt-5 text-sm font-medium">
-        <a href={href} class="text-accent hover:underline decoration-dashed underline-offset-4">
-          View details
-        </a>
-      </div>
+    <div>
+      <p class="mt-3 max-w-3xl text-sm leading-7 opacity-80">{description}</p>
     </div>
   </div>
 </article>
