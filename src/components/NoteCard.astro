@@ -34,7 +34,7 @@ const heading = title ?? dayjs.utc(noteDate).format("MMM D, YYYY");
   <a
     href={href}
     class:list={[
-      "group block rounded-[1.75rem] border border-border bg-muted/18 p-5 transition hover:border-accent/30 hover:bg-muted/30",
+      "group block border border-border bg-muted/18 p-5 transition hover:border-accent/30 hover:bg-muted/30",
       { "p-4": compact },
     ]}
   >
@@ -49,7 +49,7 @@ const heading = title ?? dayjs.utc(noteDate).format("MMM D, YYYY");
 
     {
       photoSrc && (
-        <div class="mt-4 overflow-hidden rounded-[1.35rem] border border-border/70">
+        <div class="mt-4 overflow-hidden border border-border/70">
           <img
             src={photoSrc}
             alt={heading}

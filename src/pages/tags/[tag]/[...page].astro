@@ -5,20 +5,57 @@ import Main from "@/layouts/Main.astro";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import Card from "@/components/Card.astro";
 import Pagination from "@/components/Pagination.astro";
 import getUniqueTags from "@/utils/getUniqueTags";
-import getPostsByTag from "@/utils/getPostsByTag";
+import { getPath } from "@/utils/getPath";
+import { getNotePath } from "@/utils/getNotePath";
+import { slugifyStr } from "@/utils/slugify";
 import { SITE } from "@/config";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const posts = await getCollection("blog");
-  const tags = getUniqueTags(posts);
+  const notes = await getCollection("notes");
+  const tags = getUniqueTags([...posts, ...notes]);
 
   return tags.flatMap(({ tag, tagName }) => {
-    const tagPosts = getPostsByTag(posts, tag);
+    const taggedPosts = posts
+      .filter(
+        post =>
+          !post.data.draft &&
+          post.data.tags.some(postTag => slugifyStr(postTag) === tag)
+      )
+      .map(post => ({
+        kind: "post" as const,
+        title: post.data.title,
+        href: getPath(post.id, post.filePath, true, post.slug),
+        date: post.data.pubDatetime,
+      }));
 
-    return paginate(tagPosts, {
+    const taggedNotes = notes
+      .filter(
+        note =>
+          !note.data.draft &&
+          note.data.tags.some(noteTag => slugifyStr(noteTag) === tag)
+      )
+      .map(note => ({
+        kind: "note" as const,
+        title:
+          note.data.title ??
+          new Intl.DateTimeFormat("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+            timeZone: "UTC",
+          }).format(note.data.noteDate),
+        href: getNotePath(note.id, note.slug),
+        date: note.data.noteDate,
+      }));
+
+    const taggedItems = [...taggedPosts, ...taggedNotes].sort(
+      (a, b) => b.date.getTime() - a.date.getTime()
+    );
+
+    return paginate(taggedItems, {
       params: { tag },
       props: { tagName },
       pageSize: SITE.postPerPage,
@@ -36,11 +73,36 @@ const { page, tagName } = Astro.props;
   <Main
     pageTitle={[`Tag:`, `${tagName}`]}
     titleTransition={tag}
-    pageDesc={`All the articles with the tag "${tagName}".`}
+    pageDesc={`All posts and notes with the tag "${tagName}".`}
   >
     <h1 slot="title" transition:name={tag}>{`Tag:${tag}`}</h1>
-    <ul>
-      {page.data.map(data => <Card {...data} />)}
+    <ul class="mt-6">
+      {page.data.map(item => (
+        <li class="border-b border-border/70 pt-4 pb-0 last:border-b-0">
+          <a
+            href={item.href}
+            class="grid gap-1 sm:grid-cols-[5.5rem_minmax(0,1fr)_9rem] sm:items-baseline sm:gap-3"
+          >
+            <span class="text-xs font-medium uppercase tracking-[0.16em] opacity-55">
+              {item.kind}
+            </span>
+            <span class="min-w-0 text-base leading-none transition-colors hover:text-accent sm:text-[1.15rem] sm:leading-none">
+              {item.title}
+            </span>
+            <time
+              datetime={item.date.toISOString()}
+              class="text-sm leading-none tracking-[0.05em] opacity-65 sm:text-right"
+            >
+              {new Intl.DateTimeFormat("en-US", {
+                day: "numeric",
+                month: "short",
+                year: "numeric",
+                timeZone: "UTC",
+              }).format(item.date)}
+            </time>
+          </a>
+        </li>
+      ))}
     </ul>
   </Main>
 
