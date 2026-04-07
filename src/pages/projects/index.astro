@@ -19,7 +19,7 @@ const projects = getSortedProjects(await getCollection("projects"));
   >
     {
       projects.length > 0 ? (
-        <section class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <section class="divide-y divide-border border-t border-border">
           {projects.map(project => <ProjectCard {...project} />)}
         </section>
       ) : (

@@ -6,7 +6,6 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import BackButton from "@/components/BackButton.astro";
 import ProjectStatusBadge from "@/components/ProjectStatusBadge.astro";
-import LinkButton from "@/components/LinkButton.astro";
 import getSortedProjects from "@/utils/getSortedProjects";
 import { getProjectPath } from "@/utils/getProjectPath";
 import { SITE } from "@/config";
@@ -63,7 +62,7 @@ const relatedProjects = projects
   <Header />
   <BackButton />
   <main id="main-content" class="app-layout pb-12">
-    <section class="grid gap-8 border-b border-border pb-8 lg:grid-cols-[minmax(0,1.4fr)_20rem]">
+    <section class="border-b border-border pb-8">
       <div>
         <div class="flex flex-wrap items-center gap-3">
           <ProjectStatusBadge status={status} />
@@ -72,15 +71,6 @@ const relatedProjects = projects
         <h1 class="mt-5 text-3xl font-semibold text-accent sm:text-4xl">
           {title}
         </h1>
-        <p class="mt-4 max-w-3xl text-base leading-8 opacity-85">
-          {description}
-        </p>
-      </div>
-
-      <aside class="rounded-[2rem] border border-border p-5">
-        <p class="text-sm font-medium tracking-[0.18em] uppercase opacity-70">
-          Project Snapshot
-        </p>
         {
           stack.length > 0 && (
             <ul class="mt-4 flex flex-wrap gap-2">
@@ -92,11 +82,32 @@ const relatedProjects = projects
             </ul>
           )
         }
-        <div class="mt-5 flex flex-wrap gap-3">
-          {demoUrl && <LinkButton href={demoUrl}>Live site</LinkButton>}
-          {repoUrl && <LinkButton href={repoUrl}>Repository</LinkButton>}
+        <p class="mt-4 max-w-3xl text-base leading-8 opacity-85">
+          {description}
+        </p>
+        <div class="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium">
+          {
+            demoUrl && (
+              <a
+                href={demoUrl}
+                class="text-accent hover:underline decoration-dashed underline-offset-4"
+              >
+                Demo
+              </a>
+            )
+          }
+          {
+            repoUrl && (
+              <a
+                href={repoUrl}
+                class="text-accent hover:underline decoration-dashed underline-offset-4"
+              >
+                GitHub
+              </a>
+            )
+          }
         </div>
-      </aside>
+      </div>
     </section>
 
     <article
@@ -111,7 +122,14 @@ const relatedProjects = projects
         <section class="mt-12 border-t border-border pt-8">
           <h2 class="text-2xl font-semibold">More Projects</h2>
           <div class="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {relatedProjects.map(item => <LinkButton href={getProjectPath(item.id)}>{item.data.title}</LinkButton>)}
+            {relatedProjects.map(item => (
+              <a
+                href={getProjectPath(item.id)}
+                class="text-accent hover:underline decoration-dashed underline-offset-4"
+              >
+                {item.data.title}
+              </a>
+            ))}
           </div>
         </section>
       )

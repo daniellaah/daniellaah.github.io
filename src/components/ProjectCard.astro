@@ -15,40 +15,44 @@ const visibleStack = compact ? stack.slice(0, 3) : stack.slice(0, 4);
 
 <article
   class:list={[
-    "group relative overflow-hidden rounded-[2rem] border border-border bg-background p-6 transition duration-200 hover:-translate-y-1 hover:border-accent/35 hover:shadow-[0_20px_60px_rgba(18,57,91,0.08)]",
+    "group py-6 transition duration-200",
     { "p-5": compact },
   ]}
 >
-  <div
-    class="pointer-events-none absolute inset-x-0 top-0 h-24 bg-linear-to-b from-accent/12 via-accent/4 to-transparent"
-  />
-  <div class="relative">
-    <div class="flex flex-wrap items-center justify-between gap-3">
-      <ProjectStatusBadge status={status} />
-      {year && <span class="text-sm opacity-65">{year}</span>}
+  <div class="grid gap-6 md:grid-cols-[minmax(0,1fr)_max-content] md:items-start">
+    <div>
+      <div class="flex flex-wrap items-center gap-3">
+        <ProjectStatusBadge status={status} />
+        {year && <span class="text-sm opacity-65">{year}</span>}
+      </div>
+
+      <h2 class="mt-4 text-2xl font-semibold text-accent">
+        <a href={href} class="hover:underline decoration-dashed underline-offset-4">
+          {title}
+        </a>
+      </h2>
+
+      <p class="mt-3 max-w-3xl text-sm leading-7 opacity-80">{description}</p>
     </div>
 
-    <h2 class="mt-5 text-2xl font-semibold text-accent">
-      <a href={href} class="after:absolute after:inset-0">{title}</a>
-    </h2>
+    <div class="md:text-right">
+      {
+        visibleStack.length > 0 && (
+          <ul class="flex flex-nowrap gap-2 overflow-x-auto md:justify-end md:overflow-visible">
+            {visibleStack.map(item => (
+              <li class="rounded-full bg-muted/55 px-3 py-1 text-xs font-medium whitespace-nowrap">
+                {item}
+              </li>
+            ))}
+          </ul>
+        )
+      }
 
-    <p class="mt-3 text-sm leading-7 opacity-80">{description}</p>
-
-    {
-      visibleStack.length > 0 && (
-        <ul class="mt-5 flex flex-wrap gap-2">
-          {visibleStack.map(item => (
-            <li class="rounded-full bg-muted/55 px-3 py-1 text-xs font-medium">
-              {item}
-            </li>
-          ))}
-        </ul>
-      )
-    }
-
-    <div class="mt-6 flex items-center justify-between text-sm font-medium">
-      <span class="opacity-70">View details</span>
-      <span class="text-accent transition group-hover:translate-x-1">→</span>
+      <div class="mt-5 text-sm font-medium">
+        <a href={href} class="text-accent hover:underline decoration-dashed underline-offset-4">
+          View details
+        </a>
+      </div>
     </div>
   </div>
 </article>
