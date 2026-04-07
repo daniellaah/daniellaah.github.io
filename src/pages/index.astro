@@ -1,14 +1,20 @@
 ---
 import { getCollection } from "astro:content";
+import dayjs from "dayjs";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import PostsList from "@/components/PostsList.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
+import getSortedProjects from "@/utils/getSortedProjects";
+import { getProjectPath } from "@/utils/getProjectPath";
 
 const posts = await getCollection("blog");
+const projects = await getCollection("projects");
 const sortedPosts = getSortedPosts(posts);
+const sortedProjects = getSortedProjects(projects);
 const latestPosts = sortedPosts.slice(0, 10);
+const latestProjects = sortedProjects.slice(0, 4);
 ---
 
 <Layout lang="en">
@@ -37,6 +43,37 @@ const latestPosts = sortedPosts.slice(0, 10);
           </p> -->
         </div>
 
+      </div>
+    </section>
+
+    <section class="pb-8">
+      <div class="mx-auto max-w-4xl border-t border-border pt-10">
+        <div class="flex items-end justify-between gap-4">
+          <h2 class="text-3xl font-semibold sm:text-4xl">Latest Projects</h2>
+          <a href="/projects/" class="text-sm opacity-70 hover:text-accent hover:opacity-100">
+            View all
+          </a>
+        </div>
+
+        <ul class="mt-6">
+          {latestProjects.map(project => (
+            <li class="border-b border-border/70 pt-4 pb-0 last:border-b-0">
+              <a
+                href={getProjectPath(project.id)}
+                class="grid gap-1 sm:grid-cols-[minmax(0,1fr)_9rem] sm:items-baseline sm:gap-3"
+              >
+                <span class="min-w-0 text-base leading-none transition-colors hover:text-accent sm:text-[1.15rem] sm:leading-none">
+                  {project.data.title}
+                </span>
+                <time class="text-sm leading-none tracking-[0.05em] opacity-65 sm:text-right">
+                  {project.data.startDate
+                    ? dayjs(project.data.startDate).format("D MMM YYYY")
+                    : String(project.data.year ?? "")}
+                </time>
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
 
